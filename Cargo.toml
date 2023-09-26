@@ -54,3 +54,6 @@ wasm32-wasi-vfs = ["rusqlite/wasm32-wasi-vfs"]
 window = ["rusqlite/window"]
 winsqlite3 = ["rusqlite/winsqlite3"]
 with-asan = ["rusqlite/with-asan"]
+
+[dev-dependencies]
+tokio = { version = "1.32.0", features = ["full"] }

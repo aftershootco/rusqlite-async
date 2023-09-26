@@ -1,5 +1,6 @@
 // use core::panic::UnwindSafe;
 
+use core::ffi::c_int;
 use core::panic::{RefUnwindSafe, UnwindSafe};
 
 use crate::{errors, errors::Result, Connection, Message};
@@ -54,7 +55,7 @@ impl crate::Connection {
     pub async fn create_scalar_function<F, T>(
         &self,
         fn_name: &'static str,
-        n_arg: i32,
+        n_arg: c_int,
         flags: FunctionFlags,
         x_func: F,
     ) -> Result<()>
@@ -72,7 +73,7 @@ impl crate::Connection {
     pub async fn create_aggregate_function<A, D, T>(
         &self,
         fn_name: &'static str,
-        n_arg: i32,
+        n_arg: c_int,
         flags: FunctionFlags,
         aggr: D,
     ) -> Result<(), errors::Error>
@@ -89,7 +90,7 @@ impl crate::Connection {
     pub async fn create_window_function<A, W, T>(
         &self,
         fn_name: &'static str,
-        n_arg: i32,
+        n_arg: c_int,
         flags: FunctionFlags,
         aggr: W,
     ) -> Result<(), errors::Error>

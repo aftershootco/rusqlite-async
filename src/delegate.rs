@@ -1,10 +1,10 @@
 // use core::panic::UnwindSafe;
 
-use core::ffi::c_int;
+// use core::ffi::c_int;
 use core::panic::{RefUnwindSafe, UnwindSafe};
 
 use crate::{errors, errors::Result, Connection, Message};
-use rusqlite::functions::{FunctionFlags, WindowAggregate};
+// use rusqlite::functions::FunctionFlags;
 use rusqlite::{Connection as SqliteConnection, ToSql};
 
 // type DelegateFn<T> = FnMut(&mut SqliteConnection) -> Result<T, rusqlite::Error> + Send;
@@ -55,8 +55,8 @@ impl crate::Connection {
     pub async fn create_scalar_function<F, T>(
         &self,
         fn_name: &'static str,
-        n_arg: c_int,
-        flags: FunctionFlags,
+        n_arg: core::ffi::c_int,
+        flags: rusqlite::functions::FunctionFlags,
         x_func: F,
     ) -> Result<()>
     where
@@ -73,8 +73,8 @@ impl crate::Connection {
     pub async fn create_aggregate_function<A, D, T>(
         &self,
         fn_name: &'static str,
-        n_arg: c_int,
-        flags: FunctionFlags,
+        n_arg: core::ffi::c_int,
+        flags: rusqlite::functions::FunctionFlags,
         aggr: D,
     ) -> Result<(), errors::Error>
     where
@@ -90,13 +90,13 @@ impl crate::Connection {
     pub async fn create_window_function<A, W, T>(
         &self,
         fn_name: &'static str,
-        n_arg: c_int,
-        flags: FunctionFlags,
+        n_arg: core::ffi::c_int,
+        flags: rusqlite::functions::FunctionFlags,
         aggr: W,
     ) -> Result<(), errors::Error>
     where
         A: RefUnwindSafe + UnwindSafe,
-        W: WindowAggregate<A, T> + 'static + Send,
+        W: rusqlite::functions::WindowAggregate<A, T> + 'static + Send,
         T: ToSql,
     {
         self.delegate(move |conn| conn.create_window_function(fn_name, n_arg, flags, aggr))

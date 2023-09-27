@@ -1,10 +1,5 @@
-// use core::panic::UnwindSafe;
-
-// use core::ffi::c_int;
-use core::panic::{RefUnwindSafe, UnwindSafe};
-
 use crate::{errors, errors::Result, Connection, Message};
-// use rusqlite::functions::FunctionFlags;
+use core::panic::{RefUnwindSafe, UnwindSafe};
 use rusqlite::{Connection as SqliteConnection, ToSql};
 
 // type DelegateFn<T> = FnMut(&mut SqliteConnection) -> Result<T, rusqlite::Error> + Send;
